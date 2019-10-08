@@ -15,7 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.RoundingMode;
@@ -158,9 +162,60 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void functionMap(View view) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Environment.getExternalStorageDirectory());
+        sb.append("/GPS Logger");
+        TextView fileText = (TextView) findViewById(R.id.file1);
+        String text = fileText.getText().toString();
+        File file = new File(sb.toString(), "/" + text);
+        if(R.id.map_button1 == view.getId()){
+            fileText = (TextView) findViewById(R.id.file1);
+            text = fileText.getText().toString();
+            file = new File(sb.toString(), "/" + text);
+        }
+        else if(R.id.map_button2 == view.getId()){
+            fileText = (TextView) findViewById(R.id.file2);
+            text = fileText.getText().toString();
+            file = new File(sb.toString(), "/" + text);
+
+        }
+        else if(R.id.map_button3 == view.getId()){
+            fileText = (TextView) findViewById(R.id.file3);
+            text = fileText.getText().toString();
+            file = new File(sb.toString(), "/" + text);
+
+        }
+        else if(R.id.map_button4 == view.getId()){
+            fileText = (TextView) findViewById(R.id.file4);
+            text = fileText.getText().toString();
+            file = new File(sb.toString(), "/" + text);
+        }
+        else if(R.id.map_button5 == view.getId()){
+            fileText = (TextView) findViewById(R.id.file5);
+            text = fileText.getText().toString();
+            file = new File(sb.toString(), "/" + text);
+        }
+        String row;
+        StringBuilder data = new StringBuilder();
+        try{
+            BufferedReader csvReader = new BufferedReader(new FileReader(file.toString()));
+            while ((row = csvReader.readLine()) != null) {
+                row += ";";
+                data.append(row);
+            }
+            csvReader.close();
+        }
+        catch(FileNotFoundException e){
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), "File not found", duration);
+            toast.setGravity(16, 0, 0);
+            toast.show();
+        }
+        catch(IOException e){
+            Log.i("INFO", "IOException occured while reading the CSV file.");
+        }
         Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("latitude", 30.75511041d);
-        intent.putExtra("longitude", 76.78201742d);
+        intent.putExtra("csv_content", data.toString());
         startActivity(intent);
     }
 
