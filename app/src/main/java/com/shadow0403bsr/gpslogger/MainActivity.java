@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -25,8 +26,6 @@ import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -130,78 +129,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void functionRefresh(View view) {
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), "Fetching recent logs", duration);
-        toast.setGravity(16, 0, 0);
-        toast.show();
-        StringBuilder sb = new StringBuilder();
-        sb.append(Environment.getExternalStorageDirectory());
-        sb.append("/GPS Logger");
-        File[] files = new File(sb.toString()).listFiles();
-        String[] fileNames = new String[files.length];
-        for (int totalFiles = 0; totalFiles < files.length; totalFiles++) {
-            fileNames[totalFiles] = files[totalFiles].getName();
-        }
-        Arrays.sort(fileNames, Collections.reverseOrder());
-        for (int totalFiles2 = 0; totalFiles2 < Math.min(5, files.length); totalFiles2++) {
-            TextView fileText = (TextView) findViewById(R.id.file1);
-            if (totalFiles2 == 0) {
-                fileText = (TextView) findViewById(R.id.file1);
-            } else if (totalFiles2 == 1) {
-                fileText = (TextView) findViewById(R.id.file2);
-            } else if (totalFiles2 == 2) {
-                fileText = (TextView) findViewById(R.id.file3);
-            } else if (totalFiles2 == 3) {
-                fileText = (TextView) findViewById(R.id.file4);
-            } else if (totalFiles2 == 4) {
-                fileText = (TextView) findViewById(R.id.file5);
-            }
-            fileText.setText(fileNames[totalFiles2]);
-        }
+    public void functionMap(View view){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        startActivityForResult(intent, 99);
     }
 
-    public void functionMap(View view) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != 99 || resultCode != RESULT_OK) {
+            Log.i("INFO", "User didn't select any file");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append(Environment.getExternalStorageDirectory());
-        sb.append("/GPS Logger");
-        TextView fileText = (TextView) findViewById(R.id.file1);
-        String text = fileText.getText().toString();
-        File file = new File(sb.toString(), "/" + text);
-        if(R.id.map_button1 == view.getId()){
-            fileText = (TextView) findViewById(R.id.file1);
-            text = fileText.getText().toString();
-            file = new File(sb.toString(), "/" + text);
-        }
-        else if(R.id.map_button2 == view.getId()){
-            fileText = (TextView) findViewById(R.id.file2);
-            text = fileText.getText().toString();
-            file = new File(sb.toString(), "/" + text);
-
-        }
-        else if(R.id.map_button3 == view.getId()){
-            fileText = (TextView) findViewById(R.id.file3);
-            text = fileText.getText().toString();
-            file = new File(sb.toString(), "/" + text);
-
-        }
-        else if(R.id.map_button4 == view.getId()){
-            fileText = (TextView) findViewById(R.id.file4);
-            text = fileText.getText().toString();
-            file = new File(sb.toString(), "/" + text);
-        }
-        else if(R.id.map_button5 == view.getId()){
-            fileText = (TextView) findViewById(R.id.file5);
-            text = fileText.getText().toString();
-            file = new File(sb.toString(), "/" + text);
-        }
+        Uri uri = data.getData();
+        String path = uri.getPath();
+        String localPath = path.replace("/document/primary:", "");
+        sb.append("/" + localPath);
+        File file = new File(sb.toString());
         String row;
-        StringBuilder data = new StringBuilder();
+        StringBuilder csv_data = new StringBuilder();
         try{
             BufferedReader csvReader = new BufferedReader(new FileReader(file.toString()));
             while ((row = csvReader.readLine()) != null) {
                 row += ";";
-                data.append(row);
+                csv_data.append(row);
             }
             csvReader.close();
         }
@@ -215,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("INFO", "IOException occured while reading the CSV file.");
         }
         Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("csv_content", data.toString());
+        intent.putExtra("csv_content", csv_data.toString());
         startActivity(intent);
     }
 
@@ -231,14 +184,5 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 12);
             return;
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(Environment.getExternalStorageDirectory());
-        sb.append("/GPS Logger");
-        File directory = new File(sb.toString());
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        this.ifLogging = false;
-        functionRefresh(findViewById(R.id.refreshButton));
     }
 }

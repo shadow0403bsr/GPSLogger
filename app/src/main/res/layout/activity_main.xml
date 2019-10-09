@@ -5,7 +5,8 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:onClick="functionMap">
 
     <TextView
         android:id="@+id/textView"
@@ -121,177 +122,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/file1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#009688"
-        android:padding="10dp"
-        android:text="Empty"
-        android:textColor="#faf7f4f4"
-        app:layout_constraintBottom_toBottomOf="@+id/file2"
-        app:layout_constraintEnd_toEndOf="@id/file2"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887" />
-
     <Button
-        android:id="@+id/map_button1"
-        android:layout_width="78dp"
-        android:layout_height="37dp"
-        android:drawableLeft="@drawable/ic_map"
-        android:text="MAP"
-        android:onClick="functionMap"
-        app:layout_constraintBottom_toBottomOf="@+id/file1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="@+id/file1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/map_button2"
-        android:layout_width="78dp"
-        android:layout_height="37dp"
-        android:drawableLeft="@drawable/ic_map"
-        android:text="MAP"
-        android:onClick="functionMap"
-        app:layout_constraintBottom_toBottomOf="@+id/file2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="@+id/file2"
-        app:layout_constraintTop_toBottomOf="@+id/file1"
-        app:layout_constraintVertical_bias="0.904" />
-
-    <Button
-        android:id="@+id/map_button3"
-        android:layout_width="78dp"
-        android:layout_height="37dp"
-        android:drawableLeft="@drawable/ic_map"
-        android:text="MAP"
-        android:onClick="functionMap"
-        app:layout_constraintBottom_toBottomOf="@+id/file3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/map_button4"
-        android:layout_width="78dp"
-        android:layout_height="37dp"
-        android:drawableLeft="@drawable/ic_map"
-        android:text="MAP"
-        android:onClick="functionMap"
-        app:layout_constraintBottom_toBottomOf="@+id/file4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="@+id/file4"
-        app:layout_constraintTop_toBottomOf="@+id/file3"
-        app:layout_constraintVertical_bias="0.882" />
-
-    <Button
-        android:id="@+id/map_button5"
-        android:layout_width="78dp"
-        android:layout_height="37dp"
-        android:drawableLeft="@drawable/ic_map"
-        android:text="MAP"
-        android:onClick="functionMap"
-        app:layout_constraintBottom_toBottomOf="@+id/file5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="@+id/file5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/file2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="#009688"
-        android:padding="10dp"
-        android:text="Empty"
-        android:textColor="#faf8f8"
-        app:layout_constraintBottom_toBottomOf="@+id/file3"
-        app:layout_constraintEnd_toEndOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toStartOf="@id/file1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903" />
-
-    <TextView
-        android:id="@+id/file3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="#009688"
-        android:padding="10dp"
-        android:text="Empty"
-        android:textColor="#fdfdfd"
-        app:layout_constraintBottom_toBottomOf="@+id/file4"
-        app:layout_constraintEnd_toEndOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/file2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
-    <TextView
-        android:id="@+id/file4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="#009688"
-        android:padding="10dp"
-        android:text="Empty"
-        android:textColor="#f3f0f0"
-        app:layout_constraintBottom_toBottomOf="@+id/file5"
-        app:layout_constraintEnd_toEndOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/file3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916" />
-
-    <TextView
-        android:id="@+id/file5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="#009688"
-        android:padding="10dp"
-        android:text="Empty"
-        android:textColor="#f8f7f7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/file4" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recently created logs"
-        android:textColor="#0f0000"
-        app:layout_constraintBottom_toTopOf="@+id/file1"
-        app:layout_constraintEnd_toStartOf="@+id/refreshButton"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.938" />
-
-    <Button
-        android:id="@+id/refreshButton"
+        android:id="@+id/mapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="15dp"
-        android:onClick="functionRefresh"
-        android:text="Refresh"
-        android:textSize="14sp"
+        android:onClick="functionMap"
+        android:text="VIEW MAP"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.554" />
