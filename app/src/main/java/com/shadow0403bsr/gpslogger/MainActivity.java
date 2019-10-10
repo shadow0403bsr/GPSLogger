@@ -146,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = data.getData();
         String path = uri.getPath();
         String localPath = path.replace("/document/primary:", "");
+        if(!localPath.endsWith(".csv")){
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), "Select a valid csv file", duration);
+            toast.setGravity(16, 0, 0);
+            toast.show();
+            return;
+        }
         sb.append("/" + localPath);
         File file = new File(sb.toString());
         String row;
@@ -160,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(FileNotFoundException e){
             int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getApplicationContext(), "File not found", duration);
+            Toast toast = Toast.makeText(getApplicationContext(), "CSV File not found", duration);
             toast.setGravity(16, 0, 0);
             toast.show();
         }
